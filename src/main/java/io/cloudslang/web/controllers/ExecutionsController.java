@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("cs/rest")
+@RequestMapping("cs/rest/v1")
 @EnableAutoConfiguration
 public class ExecutionsController {
 
@@ -43,7 +43,7 @@ public class ExecutionsController {
     private static Gson gson = new Gson();
 
     @PreAuthorize("hasRole('EXECUTE')")
-    @RequestMapping(value = "/v1/executions", method = RequestMethod.POST)
+    @RequestMapping(value = "executions", method = RequestMethod.POST)
     public Long triggerExecution(@RequestBody String executionTriggeringVoStr) {
 
         ExecutionTriggeringVo executionTriggeringVo = gson.fromJson(executionTriggeringVoStr, ExecutionTriggeringVo.class);
@@ -52,7 +52,7 @@ public class ExecutionsController {
     }
 
     @PreAuthorize("hasRole('EXECUTE')")
-    @RequestMapping(value = "/v1/executions/{executionId}", method = RequestMethod.GET)
+    @RequestMapping(value = "executions/{executionId}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<ExecutionSummaryWebVo> getExecution(@PathVariable("executionId") Long executionId) {
         try {

@@ -13,8 +13,6 @@ import io.cloudslang.web.client.FlowInputVo;
 import io.cloudslang.web.client.FlowVo;
 import io.cloudslang.web.client.VersionVo;
 import io.cloudslang.web.services.FlowServiceImpl;
-import java.io.IOException;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -25,9 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.util.List;
+
 @Component
 @RestController
-@RequestMapping("cs/rest")
+@RequestMapping("cs/rest/v1")
 public class FlowController {
 
     @Value("${slang.version}")
@@ -41,7 +42,7 @@ public class FlowController {
         return new VersionVo(slangVersion);
     }
 
-    @RequestMapping(value = "/flows/v1/{flowId}/inputs", method = RequestMethod.GET)
+    @RequestMapping(value = "/flows/{flowId}/inputs", method = RequestMethod.GET)
     public ResponseEntity<List<FlowInputVo>> getInputs(@PathVariable("flowId") String filepath) {
 
         try {
@@ -52,7 +53,7 @@ public class FlowController {
         }
     }
 
-    @RequestMapping(value = "flows/v1/flows", method = RequestMethod.GET)
+    @RequestMapping(value = "flows", method = RequestMethod.GET)
     public ResponseEntity<List<FlowVo>> retrieveAvailableFlows() {
 
         try {
