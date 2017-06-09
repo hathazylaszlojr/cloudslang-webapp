@@ -15,12 +15,9 @@ public class FlowVo {
 
     private String name;
 
-    private boolean runnable;
-
     public FlowVo(String name, String id) {
         this.name = name;
         this.id = id;
-        this.runnable = true;
     }
 
     public String getId() {
@@ -29,10 +26,6 @@ public class FlowVo {
 
     public String getName() {
         return name;
-    }
-
-    public boolean isRunnable() {
-        return runnable;
     }
 
 }
