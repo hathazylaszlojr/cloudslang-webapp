@@ -18,7 +18,6 @@ import io.cloudslang.score.facade.execution.ExecutionStatus;
 import io.cloudslang.web.client.ExecutionSummaryWebVo;
 import io.cloudslang.web.client.ExecutionTriggeringVo;
 import io.cloudslang.web.entities.ExecutionSummaryEntity;
-import io.cloudslang.web.helper.FileHelper;
 import io.cloudslang.web.repositories.ExecutionSummaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,11 +46,14 @@ public class ExecutionsServiceImpl implements ExecutionsService {
     @Autowired
     ExecutionSummaryRepository repository;
 
+    @Autowired
+    FlowServiceImpl flowService;
+
     @Override
     @Transactional
     public Long triggerExecution(ExecutionTriggeringVo executionTriggeringVo) {
-        SlangSource flowSource = SlangSource.fromFile(new File(FileHelper.flowIdToFilePath(executionTriggeringVo.getSlangFlowId())));
-        String slangDir = FileHelper.getContentPath();
+        SlangSource flowSource = SlangSource.fromFile(new File(flowService.flowIdToFilePath(executionTriggeringVo.getSlangFlowId())));
+        String slangDir = flowService.getContentPath();
         Map<String, Value> inputs = getInputs(executionTriggeringVo);
         Set<SystemProperty> systemProperties = getSystemProperties(executionTriggeringVo);
 
