@@ -63,4 +63,16 @@ public class FlowController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @RequestMapping(value = "flows/refresh", method = RequestMethod.GET)
+    public ResponseEntity<String> refreshAvailableFlows() {
+
+        try {
+            flowServiceImpl.populateFlowMap();
+            return new ResponseEntity<>("Flow list refresh successful!", HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
